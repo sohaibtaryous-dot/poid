@@ -1,0 +1,3 @@
+Déposez ici votre vidéo d'en-tête sous le nom exact : hero.mp4
+(MP4 H.264, 1280x720, sans son, 5-15 Mo maximum).
+Sans ce fichier, le site affiche le camion animé.
