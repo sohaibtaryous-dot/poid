@@ -1526,6 +1526,12 @@ def _render_ventilation_section(bl_final: pd.DataFrame, kind: str = "export"):
     if vent.missing:
         with st.expander(f"Références à vérifier ({len(vent.missing)})"):
             st.dataframe(pd.DataFrame(vent.missing), use_container_width=True, hide_index=True)
+    if not imp:                                                       # vérification de la déclaration BADR (EXPORT)
+        try:
+            import dum_check
+            dum_check.render(vent, rate, fret, bl_final, (st.session_state.get("exp_result") or {}).get("factures"))
+        except Exception as exc:  # noqa: BLE001
+            st.warning(f"Vérification de la déclaration indisponible ({type(exc).__name__}: {exc}).")
     sig = (dest, round(rate, 4), round(fret, 2), round(acc, 2), guess, (split, round(ratio, 4)) if imp else None, len(bl_final), round(t["valeur"], 2), round(t["net"], 3),
            repr(manual) if manual else "auto", matricule, fix_sig)
     suffix = "IMPORT" if imp else "DUM"
